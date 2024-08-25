@@ -72,6 +72,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanel1.add(numeroFila, gridBagConstraints);
 
         jButton1.setText("Aceptar");
+        jButton1.setFocusPainted(false);
+        jButton1.setFocusable(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
