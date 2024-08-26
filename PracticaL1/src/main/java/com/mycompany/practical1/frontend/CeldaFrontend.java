@@ -47,7 +47,7 @@ public class CeldaFrontend extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        
+        System.out.println("fila: " + celda.getFilaCuadricula() + "columna: " + celda.getColumnaCuadricula());
     }//GEN-LAST:event_formMouseClicked
 
     public void setCelda(Celda celda) {
