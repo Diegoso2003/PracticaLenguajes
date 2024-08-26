@@ -43,4 +43,8 @@ public class Menu {
         menuE.setVisible(true);
     }
     
+    public void iniciarAnalisis(String texto){
+        analizador.analizar(texto);
+    }
+    
 }
