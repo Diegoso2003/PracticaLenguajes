@@ -13,10 +13,12 @@ import com.mycompany.practical1.frontend.MenuEditor;
 public class Menu {
     private Cuadricula cuadricula;
     private MenuEditor menuE;
+    private AnalizadorLexico analizador;
 
     public Menu(String fila, String columna) throws CuadriculaException {
-        menuE = new MenuEditor();
+        menuE = new MenuEditor(this);
         crearCuadricula(fila, columna);
+        analizador = new AnalizadorLexico();
     }
     
     private void crearCuadricula(String fila, String columna) throws CuadriculaException{

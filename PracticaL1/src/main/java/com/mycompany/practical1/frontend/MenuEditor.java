@@ -4,6 +4,7 @@
  */
 package com.mycompany.practical1.frontend;
 
+import com.mycompany.practical1.backend.Menu;
 import java.awt.GridLayout;
 
 /**
@@ -11,11 +12,13 @@ import java.awt.GridLayout;
  * @author rafael-cayax
  */
 public class MenuEditor extends javax.swing.JFrame {
+    private Menu menu2;
 
     /**
      * Creates new form MenuEditor
      */
-    public MenuEditor() {
+    public MenuEditor(Menu menu2) {
+        this.menu2 = menu2;
         initComponents();
     }
 
@@ -125,16 +128,6 @@ public class MenuEditor extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String texto = editor.getText();
-        char[] c = texto.toCharArray();
-        for (int i = 0; i < c.length; i++) {
-            Character f = Character.valueOf(c[i]);
-            if (f.equals('\n')) {
-                System.out.println("salto");
-            }else{
-                System.out.print(c[i] + ", ");
-            }
-            
-        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public void definirCuadricula(int fila, int columna){
