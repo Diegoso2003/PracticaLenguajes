@@ -49,6 +49,8 @@ public class AnalizadorLexico {
         Automata automata = null;
         if (tokenEs(automata = new AutomataPalabraReservada(), token)) {
             
+        } else if (tokenEs(automata = new AutomataLogico(), token)) {
+            
         } else if (tokenEs(automata = new AutomataIdentificador(), token)) {
             
         }
