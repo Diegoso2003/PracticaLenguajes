@@ -15,6 +15,7 @@ public class AutomataIdentificador extends Automata{
     @Override
     public boolean evaluarCadena(List<Character> lexemas) {
         estado = "A";
+        
         for(Character c : lexemas){
             switch(estado){
                 case "A":

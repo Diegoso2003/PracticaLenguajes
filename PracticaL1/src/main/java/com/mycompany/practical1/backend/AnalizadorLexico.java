@@ -13,24 +13,39 @@ import java.util.List;
  * @author rafael-cayax
  */
 public class AnalizadorLexico {
+
     private int columna = 1;
     private int fila = 1;
-    
-    public void analizar(String texto){
+
+    public void analizar(String texto) {
+        columna = 1;
+        fila = 1;
         char[] lexemas = texto.toCharArray();
         List<Character> token = new ArrayList<>();
         for (int i = 0; i < lexemas.length; i++) {
             Character lexema = Character.valueOf(lexemas[i]);
             if (esSaltoDeLinea(lexema)) {
                 fila++;
+                if (token.size() > 0) {
+                    columna++;
+                    evaluarToken(token);
+                    token = new ArrayList<>();
+                }
             } else if (!esEspacio(lexema) && !esTabulacion(lexema)) {
                 token.add(lexema);
-            } else if(token.size() > 0){
+            } else if (token.size() > 0) {
                 columna++;
                 evaluarToken(token);
                 token = new ArrayList<>();
             }
         }
+        
+        if (token.size() > 0) {
+            columna++;
+            evaluarToken(token);
+            System.out.println(token);
+        }
+
     }
 
     private boolean esSaltoDeLinea(Character lexema) {
@@ -48,17 +63,22 @@ public class AnalizadorLexico {
     private void evaluarToken(List<Character> token) {
         Automata automata = null;
         if (tokenEs(automata = new AutomataPalabraReservada(), token)) {
-            
+            System.out.println("palabra Reservada");
         } else if (tokenEs(automata = new AutomataLogico(), token)) {
-            
+            System.out.println("logico");
+        } else if (tokenEs(automata = new AutomataAritmetico(), token)) {
+            System.out.println("aritmetico");
         } else if (tokenEs(automata = new AutomataIdentificador(), token)) {
-            
+            System.out.println("identificador");
+        } else if (tokenEs(automata = new AutomataNumeroEntero(), token)) {
+            System.out.println("numero");
+        } else {
+            System.out.println("no es valido");
         }
     }
 
     private boolean tokenEs(Automata tipoAutomata, List<Character> token) {
         return tipoAutomata.evaluarCadena(token);
     }
-    
-    
+
 }
