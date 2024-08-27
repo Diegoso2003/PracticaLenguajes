@@ -14,5 +14,5 @@ public abstract class Automata {
     protected String estado;
     protected String color;
     
-    protected abstract boolean evaluarCadena(List<Character> lexemas);
+    public abstract boolean evaluarCadena(List<Character> lexemas);
 }

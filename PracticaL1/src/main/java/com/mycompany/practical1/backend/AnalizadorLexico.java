@@ -4,6 +4,7 @@
  */
 package com.mycompany.practical1.backend;
 
+import com.mycompany.practical1.backend.automata.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +21,13 @@ public class AnalizadorLexico {
         List<Character> token = new ArrayList<>();
         for (int i = 0; i < lexemas.length; i++) {
             Character lexema = Character.valueOf(lexemas[i]);
-            if (esSaltoDeLinea(lexema) && fila > 1) {
+            if (esSaltoDeLinea(lexema)) {
                 fila++;
-            } else if (!esEspacio(lexema) && !esTabulacion(lexema) && token.size() > 0) {
+            } else if (!esEspacio(lexema) && !esTabulacion(lexema)) {
                 token.add(lexema);
+            } else if(token.size() > 0){
                 columna++;
+                evaluarToken(token);
                 token = new ArrayList<>();
             }
         }
@@ -40,6 +43,19 @@ public class AnalizadorLexico {
 
     private boolean esTabulacion(Character lexema) {
         return lexema.equals('\t');
+    }
+
+    private void evaluarToken(List<Character> token) {
+        Automata automata = null;
+        if (tokenEs(automata = new AutomataPalabraReservada(), token)) {
+            
+        } else if (tokenEs(automata = new AutomataIdentificador(), token)) {
+            
+        }
+    }
+
+    private boolean tokenEs(Automata tipoAutomata, List<Character> token) {
+        return tipoAutomata.evaluarCadena(token);
     }
     
     
