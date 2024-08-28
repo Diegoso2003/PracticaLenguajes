@@ -76,6 +76,12 @@ public class AnalizadorLexico {
             System.out.println("decimal");
         } else if (tokenEs(automata = new AutomataCadena(), token)) {
             System.out.println("cadena");
+        } else if (tokenEs(automata = new AutomataCaracter(), token)) {
+            System.out.println("caracter");
+        } else if (tokenEs(automata = new AutomataRelacional(), token)) {
+            System.out.println("relacional");
+        } else if (tokenEs(automata = new AutomataAsignacion(), token)) {
+            System.out.println("asignacion");
         } else {
             System.out.println("no es valido");
         }
