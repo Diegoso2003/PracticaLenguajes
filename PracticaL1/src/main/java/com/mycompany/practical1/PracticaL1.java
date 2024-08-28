@@ -13,7 +13,7 @@ import com.mycompany.practical1.frontend.MenuPrincipal;
 public class PracticaL1 {
 
     public static void main(String[] args) {
-        MenuPrincipal menu = new MenuPrincipal();
-        menu.setVisible(true);
+       MenuPrincipal menu = new MenuPrincipal();
+       menu.setVisible(true);
     }
 }

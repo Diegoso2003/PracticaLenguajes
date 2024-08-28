@@ -72,6 +72,8 @@ public class AnalizadorLexico {
             System.out.println("identificador");
         } else if (tokenEs(automata = new AutomataNumeroEntero(), token)) {
             System.out.println("numero");
+        } else if (tokenEs(automata = new AutomataDecimal(), token)) {
+            System.out.println("decimal");
         } else {
             System.out.println("no es valido");
         }
