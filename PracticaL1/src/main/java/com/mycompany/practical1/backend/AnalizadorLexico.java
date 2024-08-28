@@ -68,6 +68,8 @@ public class AnalizadorLexico {
             System.out.println("logico");
         } else if (tokenEs(automata = new AutomataAritmetico(), token)) {
             System.out.println("aritmetico");
+        } else if (tokenEs(automata = new AutomataBooleano(), token)) {
+            System.out.println("booleano");
         } else if (tokenEs(automata = new AutomataIdentificador(), token)) {
             System.out.println("identificador");
         } else if (tokenEs(automata = new AutomataNumeroEntero(), token)) {

@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author rafael-cayax
  */
-public class AutomataLogico extends Automata {
+public class AutomataBooleano extends Automata{
 
     @Override
     public boolean evaluarCadena(List<Character> lexemas) {
@@ -19,14 +19,11 @@ public class AutomataLogico extends Automata {
             switch(estado){
                 case "S0":
                     switch(c){
-                        case 'A':
+                        case 'T':
                             estado = "S1";
                             break;
-                        case 'O':
+                        case 'F':
                             estado = "S2";
-                            break;
-                        case 'N':
-                            estado = "S3";
                             break;
                         default:
                             return false;
@@ -34,8 +31,8 @@ public class AutomataLogico extends Automata {
                     break;
                 case "S1":
                     switch(c){
-                        case 'n':
-                            estado = "S4";
+                        case 'r':
+                            estado = "S3";
                             break;
                         default:
                             return false;
@@ -43,9 +40,8 @@ public class AutomataLogico extends Automata {
                     break;
                 case "S2":
                     switch(c){
-                        case 'r':
-                            estado = "F";
-                            color = "#41D95D";
+                        case 'a':
+                            estado = "S4";
                             break;
                         default:
                             return false;
@@ -53,7 +49,7 @@ public class AutomataLogico extends Automata {
                     break;
                 case "S3":
                     switch(c){
-                        case 'o':
+                        case 'u':
                             estado = "S5";
                             break;
                         default:
@@ -62,9 +58,8 @@ public class AutomataLogico extends Automata {
                     break;
                 case "S4":
                     switch(c){
-                        case 'd':
-                            estado = "F";
-                            color = "#414ED9";
+                        case 'l':
+                            estado = "S6";
                             break;
                         default:
                             return false;
@@ -72,9 +67,17 @@ public class AutomataLogico extends Automata {
                     break;
                 case "S5":
                     switch(c){
-                        case 't':
+                        case 'e':
                             estado = "F";
-                            color = "#A741D9";
+                            break;
+                        default:
+                            return false;
+                    }
+                    break;
+                case "S6":
+                    switch(c){
+                        case 's':
+                            estado = "S5";
                             break;
                         default:
                             return false;
@@ -84,8 +87,8 @@ public class AutomataLogico extends Automata {
                     return false;
             }
         }
-
+        color = "#FA6800";
         return estado.equals("F");
     }
-
+    
 }
