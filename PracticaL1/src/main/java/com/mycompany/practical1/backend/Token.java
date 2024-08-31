@@ -4,6 +4,7 @@
  */
 package com.mycompany.practical1.backend;
 
+import com.mycompany.practical1.backend.enums.Tokens;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -14,10 +15,47 @@ import java.util.ArrayList;
 public class Token {
     
     private List<Character> lexema;
-    private String tipo;
+    private Tokens token;
+    private int fila;
+    private int columna;
 
     public Token() {
         lexema = new ArrayList<>();
     }
     
+    public void imprimir(){
+        System.out.println(token);
+    }
+
+    public List<Character> getLexema() {
+        return lexema;
+    }
+
+    public void setLexema(List<Character> lexema) {
+        this.lexema = lexema;
+    }
+
+    public Tokens getToken() {
+        return token;
+    }
+
+    public void setToken(Tokens token) {
+        this.token = token;
+    }
+
+    public int getFila() {
+        return fila;
+    }
+
+    public void setFila(int fila) {
+        this.fila = fila;
+    }
+
+    public int getColumna() {
+        return columna;
+    }
+
+    public void setColumna(int columna) {
+        this.columna = columna;
+    }
 }

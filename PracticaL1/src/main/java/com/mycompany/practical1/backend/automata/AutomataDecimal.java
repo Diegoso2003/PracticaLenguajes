@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author rafael-cayax
  */
-public class AutomataDecimal extends Automata {
+public class AutomataDecimal extends Automata3 {
 
     @Override
     public boolean evaluarCadena(List<Character> lexemas) {

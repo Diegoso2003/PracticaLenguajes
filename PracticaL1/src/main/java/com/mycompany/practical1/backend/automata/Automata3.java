@@ -10,11 +10,9 @@ import java.util.List;
  *
  * @author rafael-cayax
  */
-public class automataSignos extends Automata3{
-
-    @Override
-    public boolean evaluarCadena(List<Character> lexemas) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+public abstract class Automata3 {
+    protected String estado;
+    protected String color;
     
+    public abstract boolean evaluarCadena(List<Character> lexemas);
 }

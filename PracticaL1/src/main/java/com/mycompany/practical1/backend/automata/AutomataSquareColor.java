@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author rafael-cayax
  */
-public class AutomataSquareColor extends Automata{
+public class AutomataSquareColor extends Automata3{
 
     @Override
     public boolean evaluarCadena(List<Character> lexemas) {
