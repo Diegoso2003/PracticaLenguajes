@@ -52,8 +52,54 @@ public class Automata{
                         case 'S' -> estado = "S65";
                         case 'T' -> estado = "S71";
                         case 'W' -> estado = "S73";
+                        case '"' -> {
+                            token = Tokens.ERROR;
+                            estado = "C1";
+                        }
+                        case '\'' -> {
+                            estado = "C2";
+                            token = Tokens.COMENTARIO;
+                        }
+                        case '<' -> {
+                            estado = "R1";
+                            token = Tokens.RELACIONAL_MENOR_QUE;
+                        }
+                        case '>' -> {
+                            estado = "R2";
+                            token = Tokens.RELACIONAL_MAYOR_QUE;
+                        }
+                        case '=' -> {
+                            estado = "AS";
+                            token = Tokens.ASIGNACION_SIMPLE;
+                        }
+                        case '+' -> {
+                            token = Tokens.ARITMETICO_SUMA;
+                            estado = "A1";
+                        }
+                        case '-' -> {
+                            token = Tokens.ARITMETICO_RESTA;
+                            estado = "A1";
+                        }
+                        case '/' -> {
+                            token = Tokens.ARITMETICO_DIVISION;
+                            estado = "A2";
+                        }
+                        case '*' -> {
+                            token = Tokens.ARITEMTICO_MULTIPLICACION;
+                            estado = "A2";
+                        }
+                        case '.' -> {
+                            estado = "Z";
+                            token = Tokens.PUNTO;
+                        }
                         default -> {
-                            identificador(c);
+                            if (esNumero(c)) {
+                                estado = "N";
+                            } else if (esSimboloOSigno(c)) {
+                                crearToken();
+                            } else {
+                                identificador(c);
+                            }
                     }
                     }
                 }
@@ -818,6 +864,146 @@ public class Automata{
                 case "I" -> {
                     identificador(c);
                 }
+                
+                case "N" -> {
+                    switch(c){
+                        case '.' -> estado = "D";
+                        default -> {
+                            if (esNumero(c)) {
+                                token = Tokens.ENTERO;
+                            } else {
+                                analizarNumero(c);
+                            }
+                        }
+                    }
+                }
+                case "D" -> {
+                    switch(c){
+                        case '.' -> estado = "E";
+                        default -> {
+                            analizarNumero(c);
+                        }
+                    }
+                }
+                case "A1" -> {
+                    switch(c){
+                        case '=' -> {
+                            estado = "Q";
+                            token = Tokens.ASIGNACION_COMPUESTA;
+                        }
+                        default -> {
+                            if (esNumero(c)) {
+                                token = Tokens.ENTERO;
+                                estado = "N";
+                            }
+                        }
+                    }
+                }
+                case "C1" -> {
+                    switch(c){
+                        case '"' -> {
+                            token = Tokens.CADENA;
+                            estado = "Q";
+                        }
+                        default -> {
+                            if (esSaltoDeLinea(c)) {
+                                token = Tokens.ERROR;
+                                crearToken();
+                                estado = "S0";
+                            }
+                        }
+                    }
+                }
+                case "C2" -> {
+                    estado = "C3";
+                }
+                case "C3" -> {
+                    switch(c){
+                        case '\'' -> {
+                            token = Tokens.CARACTER;
+                            estado = "Q";
+                        } 
+                        default -> {
+                            token = Tokens.COMENTARIO;
+                            estado = "C4";
+                        }
+                    }
+                }
+                case "C4" -> {
+                    if (esSaltoDeLinea(c)) {
+                        crearToken();
+                        nuevaFila();
+                    }
+                }
+                case "R1" -> {
+                    switch(c){
+                        case '>' -> {
+                            token = Tokens.RELACIONAL_DIFERENTE;
+                            estado = "P";
+                        }
+                        case '=' -> {
+                            token = Tokens.RELACIONAL_MENOR_IGUAL_QUE;
+                            estado = "P";
+                        }
+                        default -> {
+                            if (!esLexemaNuevo(c)) {
+                                estado = "E";
+                                token = Tokens.ERROR;
+                            }
+                        }
+                    }
+                }
+                case "R2" -> {
+                    switch(c){
+                        case '=' -> {
+                            token = Tokens.RELACIONAL_MAYOR_IGUAL_QUE;
+                            estado = "P";
+                        }
+                        default -> {
+                            if (!esLexemaNuevo(c)) {
+                                estado = "E";
+                                token = Tokens.ERROR;
+                            }
+                        }
+                    }
+                }
+                case "AS" -> {
+                    switch(c){
+                        case '=' -> {
+                            token = Tokens.RELACIONAL_IGUAL;
+                            estado = "P";
+                        }
+                        default -> {
+                            if (!esLexemaNuevo(c)) {
+                                estado = "E";
+                                token = Tokens.ERROR;
+                            }
+                        }
+                    }
+                }
+                case "P" -> {
+                    if (!esLexemaNuevo(c)) {
+                        estado = "E";
+                        token = Tokens.ERROR;
+                    }
+                }
+                case "Q" -> {
+                    if (!esLexemaNuevo(c)) {
+                        if (esSimboloOSigno(c)) {
+                            crearToken();
+                        } else {
+                            estado = "E";
+                            token = Tokens.ERROR;
+                        }
+                    }
+                }
+                case "Z" -> {
+                    if (!esLexemaNuevo(c)) {
+                        estado = "E";
+                        token = Tokens.ERROR;
+                    }
+                }
+                
             }
             if (!esCaracterIgnorado(c)) {
                 lexema.add(c);
@@ -837,6 +1023,16 @@ public class Automata{
             analizarCaracter(c);
         }
     }
+    private void analizarNumero(char c){
+        if (!esLexemaNuevo(c)) {
+            if (esSimboloOSigno(c)) {
+                crearToken();
+            } else {
+                token = Tokens.ERROR;
+                estado = "E";
+            }
+        }
+    }
     private void analizarCaracter(char c){
         if (!esLexemaNuevo(c)) {
             if (esIdentificador(c)) {
@@ -845,6 +1041,7 @@ public class Automata{
             } else if (esSimboloOSigno(c)) {
                 crearToken();
             } else {
+                token = Tokens.ERROR;
                 estado = "E";
             }
         }
