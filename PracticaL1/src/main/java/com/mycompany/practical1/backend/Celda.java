@@ -4,6 +4,7 @@
  */
 package com.mycompany.practical1.backend;
 
+import com.mycompany.practical1.frontend.CeldaFrontend;
 import java.util.logging.Logger;
 
 /**
@@ -14,24 +15,8 @@ public class Celda {
     
     private int filaCuadricula;
     private int columnaCuadricula;
-    private int columnaEditor;
-    private int filaEditor;
-
-    public int getColumnaEditor() {
-        return columnaEditor;
-    }
-
-    public void setColumnaEditor(int columnaEditor) {
-        this.columnaEditor = columnaEditor;
-    }
-
-    public int getFilaEditor() {
-        return filaEditor;
-    }
-
-    public void setFilaEditor(int filaEditor) {
-        this.filaEditor = filaEditor;
-    }
+    private CeldaFrontend celda;
+    private Token token;
 
     public int getFilaCuadricula() {
         return filaCuadricula;
@@ -48,5 +33,35 @@ public class Celda {
     public void setColumnaCuadricula(int columnaCuadricula) {
         this.columnaCuadricula = columnaCuadricula;
     }
+
+    public CeldaFrontend getCelda() {
+        return celda;
+    }
+
+    public void setCelda(CeldaFrontend celda) {
+        this.celda = celda;
+    }
+    
+    public void limpiar(){
+        celda.limpiar();
+    }
+
+    public Token getToken() {
+        return token;
+    }
+
+    public void setToken(Token token) {
+        this.token = token;
+        token.setColumnaCuadro(columnaCuadricula);
+        token.setFilaCuadro(filaCuadricula);
+    }
+
+    public void colorear() {
+        if (token != null) {
+            celda.colorear(token.getToken().color());
+        }
+    }
+    
+    
     
 }

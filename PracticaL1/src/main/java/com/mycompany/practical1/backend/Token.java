@@ -18,6 +18,8 @@ public class Token {
     private Tokens token;
     private int fila;
     private int columna;
+    private int filaCuadro;
+    private int columnaCuadro;
 
     public Token() {
         lexema = new ArrayList<>();
@@ -58,4 +60,21 @@ public class Token {
     public void setColumna(int columna) {
         this.columna = columna;
     }
+
+    public int getFilaCuadro() {
+        return filaCuadro;
+    }
+
+    public void setFilaCuadro(int filaCuadro) {
+        this.filaCuadro = filaCuadro;
+    }
+
+    public int getColumnaCuadro() {
+        return columnaCuadro;
+    }
+
+    public void setColumnaCuadro(int columnaCuadro) {
+        this.columnaCuadro = columnaCuadro;
+    }
+    
 }

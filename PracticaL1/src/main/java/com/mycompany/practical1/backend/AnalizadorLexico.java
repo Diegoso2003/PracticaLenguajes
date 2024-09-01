@@ -14,15 +14,9 @@ import java.util.List;
  */
 public class AnalizadorLexico {
 
-    private int columna = 1;
-    private int fila = 1;
-
-    public void analizar(String texto) {
+    public List<Token> analizar(String texto) {
         Automata automata = new Automata(texto);
-        List<Token> l = automata.getTokens();
-        for(Token k : l){
-            k.imprimir();
-        }
+        return automata.getTokens();
     }
 
 }

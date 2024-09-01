@@ -5,6 +5,7 @@
 package com.mycompany.practical1.frontend;
 
 import com.mycompany.practical1.backend.Celda;
+import java.awt.Color;
 
 /**
  *
@@ -13,6 +14,7 @@ import com.mycompany.practical1.backend.Celda;
 public class CeldaFrontend extends javax.swing.JPanel {
     
     private Celda celda;
+    private boolean token = false;
     
     public CeldaFrontend() {
         initComponents();
@@ -47,11 +49,27 @@ public class CeldaFrontend extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        System.out.println("fila: " + celda.getFilaCuadricula() + "columna: " + celda.getColumnaCuadricula());
+        if (token) {
+            LexemaFrontend l = new LexemaFrontend();
+            l.mostrarLexema(celda.getToken());
+            l.setVisible(true);
+        }
     }//GEN-LAST:event_formMouseClicked
 
+    
     public void setCelda(Celda celda) {
         this.celda = celda;
+    }
+    
+    public void limpiar(){
+        token = false;
+        this.setBackground(new Color(187,187,187));
+    }
+
+    public void colorear(String color) {
+        token = true;
+        Color c = Color.decode(color);
+        this.setBackground(c);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

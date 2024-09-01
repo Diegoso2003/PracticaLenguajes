@@ -5,6 +5,7 @@
 package com.mycompany.practical1.backend;
 
 import com.mycompany.practical1.frontend.MenuEditor;
+import java.util.List;
 
 /**
  *
@@ -44,7 +45,18 @@ public class Menu {
     }
     
     public void iniciarAnalisis(String texto){
-        analizador.analizar(texto);
+        limpiarCuadricula();
+        llenarCuadricula(analizador.analizar(texto));
+    }
+
+    private void limpiarCuadricula() {
+        cuadricula.limpiar();
+    }
+
+    private void llenarCuadricula(List<Token> listaDeTokens) {
+        if (listaDeTokens.size() > 0) {
+            cuadricula.llenar(listaDeTokens);
+        }
     }
     
 }
