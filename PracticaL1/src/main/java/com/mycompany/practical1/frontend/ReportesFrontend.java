@@ -203,6 +203,9 @@ public class ReportesFrontend extends javax.swing.JFrame {
         String lineaCuadro = celda1.getToken().getFilaCuadro() + "";
         String columnaCuadro = celda1.getToken().getColumnaCuadro() + "";
         String color = celda1.getToken().getToken().color();
+        if (celda1.getColorSquare() != null) {
+            color = celda1.getColorSquare();
+        }
 
         agregarPanel(token, columna, 250, 100, true);
         columna++;

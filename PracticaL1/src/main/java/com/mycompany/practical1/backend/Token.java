@@ -16,6 +16,7 @@ public class Token {
     
     private List<Character> lexema;
     private Tokens token;
+    private SquareColor square;
     private int fila;
     private int columna;
     private int filaCuadro;
@@ -76,5 +77,12 @@ public class Token {
     public void setColumnaCuadro(int columnaCuadro) {
         this.columnaCuadro = columnaCuadro;
     }
-    
+
+    public SquareColor getSquare() {
+        return square;
+    }
+
+    public void setSquare(SquareColor square) {
+        this.square = square;
+    }
 }

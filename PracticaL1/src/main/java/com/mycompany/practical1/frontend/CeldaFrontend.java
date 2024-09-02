@@ -67,10 +67,16 @@ public class CeldaFrontend extends javax.swing.JPanel {
     }
 
     public void colorear(String color) {
-        token = true;
+        System.out.println(color);
         Color c = Color.decode(color);
         this.setBackground(c);
     }
+
+    public void setToken(boolean token) {
+        this.token = token;
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

@@ -4,8 +4,8 @@
  */
 package com.mycompany.practical1.backend;
 
+import com.mycompany.practical1.backend.enums.Tokens;
 import com.mycompany.practical1.frontend.CeldaFrontend;
-import java.util.logging.Logger;
 
 /**
  *
@@ -17,6 +17,7 @@ public class Celda {
     private int columnaCuadricula;
     private CeldaFrontend celda;
     private Token token;
+    private String colorSquare;
 
     public int getFilaCuadricula() {
         return filaCuadricula;
@@ -43,6 +44,7 @@ public class Celda {
     }
     
     public void limpiar(){
+        colorSquare = null;
         token = null;
         celda.limpiar();
     }
@@ -58,11 +60,23 @@ public class Celda {
     }
 
     public void colorear() {
-        if (token != null) {
-            celda.colorear(token.getToken().color());
+        if (colorSquare != null) {
+            celda.colorear(colorSquare);
+        } else if (token != null) {
+            if (token.getToken() == Tokens.ESPECIAL_SIMPLE) {
+                celda.colorear(token.getSquare().getColor());
+            } else{
+                celda.colorear(token.getToken().color());
+            }
         }
+        celda.setToken(token != null && token.getToken() != Tokens.ESPECIAL_SIMPLE);
     }
-    
-    
-    
+
+    public String getColorSquare() {
+        return colorSquare;
+    }
+
+    public void setColorSquare(String colorSquare) {
+        this.colorSquare = colorSquare;
+    }
 }

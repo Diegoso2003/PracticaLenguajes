@@ -39,7 +39,9 @@ public enum Tokens {
     CORCHETES("#DBA49A"),
     COMA("#B79ADB"),
     PUNTO("#9ADBA6"),
-    ERROR("error");
+    ERROR("error"),
+    ESPECIAL("especial"),
+    ESPECIAL_SIMPLE("simple");
     
     private String color;
 

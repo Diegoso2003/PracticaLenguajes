@@ -4,6 +4,7 @@
  */
 package com.mycompany.practical1.backend.automata;
 
+import com.mycompany.practical1.backend.SquareColor;
 import com.mycompany.practical1.backend.Token;
 import com.mycompany.practical1.backend.enums.Tokens;
 import java.util.ArrayList;
@@ -103,7 +104,7 @@ public class Automata{
                                 analizarSimboloOSigno(c);
                                 crearToken();
                             } else {
-                                identificador(c);
+                                analizarCaracter(c);
                             }
                     }
                     }
@@ -680,6 +681,7 @@ public class Automata{
                     switch(c){
                         case 'u' -> estado = "S66";
                         case 't' -> estado = "S67";
+                        case 'q' -> estado = "S83";
                         default -> {
                             identificador(c);
                         }
@@ -845,6 +847,221 @@ public class Automata{
                         default -> {
                             identificador(c);
                         }
+                    }
+                }
+                case "S83" -> {
+                    switch(c){
+                        case 'u' -> estado = "S84";
+                        default -> {
+                            identificador(c);
+                        }
+                    }
+                }
+                case "S84" -> {
+                    switch(c){
+                        case 'a' -> estado = "S85";
+                        default -> {
+                            identificador(c);
+                        }
+                    }
+                }
+                case "S85" -> {
+                    switch(c){
+                        case 'r' -> estado = "S86";
+                        default -> {
+                            identificador(c);
+                        }
+                    }
+                }
+                case "S86" -> {
+                    switch(c){
+                        case 'e' -> estado = "S87";
+                        default -> {
+                            identificador(c);
+                        }
+                    }
+                }
+                case "S87" -> {
+                    switch(c){
+                        case '.' -> {
+                            estado = "S88";
+                            token = Tokens.ERROR;
+                        }
+                        default -> {
+                            identificador(c);
+                        }
+                    }
+                }
+                case "S88" -> {
+                    switch(c){
+                        case 'C' -> estado = "S89";
+                        default -> {
+                            estado = "E";
+                        }
+                    }
+                }
+                case "S89" -> {
+                    switch(c){
+                        case 'o' -> estado = "S90";
+                        default -> {
+                            estado = "E";
+                        }
+                    }
+                }
+                case "S90" -> {
+                    switch(c){
+                        case 'l' -> estado = "S91";
+                        default -> {
+                            estado = "E";
+                        }
+                    }
+                }
+                case "S91" -> {
+                    switch(c){
+                        case 'o' -> estado = "S92";
+                        default -> {
+                            estado = "E";
+                        }
+                    }
+                }
+                case "S92" -> {
+                    switch(c){
+                        case 'r' -> estado = "S93";
+                        default -> {
+                            estado = "E";
+                        }
+                    }
+                }
+                case "S93" -> {
+                    switch(c){
+                        case '(' -> estado = "S95";
+                        default -> {
+                            estado = "E";
+                        }
+                    }
+                }
+                case "S95" -> {
+                    switch(c){
+                        case '#' -> estado = "S96";
+                        case ' ' -> estado = "S95";
+                        default -> {
+                            estado = "E";
+                        }
+                    }
+                }
+                case "S96" -> {
+                    if (esColor(c)) {
+                        estado = "S97";
+                    } else{
+                        estado = "E";
+                    }
+                }
+                case "S97" -> {
+                    if (esColor(c)) {
+                        estado = "S98";
+                    } else{
+                        estado = "E";
+                    }
+                }
+                case "S98" -> {
+                    if (esColor(c)) {
+                        estado = "S99";
+                    } else{
+                        estado = "E";
+                    }
+                }
+                case "S99" -> {
+                    if (esColor(c)) {
+                        estado = "S100";
+                    } else{
+                        estado = "E";
+                    }
+                }
+                case "S100" -> {
+                    if (esColor(c)) {
+                        estado = "S101";
+                    } else{
+                        estado = "E";
+                    }
+                }
+                case "S101" -> {
+                    if (esColor(c)) {
+                        estado = "S102";
+                    } else{
+                        estado = "E";
+                    }
+                }
+                case "S102" -> {
+                    switch(c){
+                        case ',' -> estado = "S103";
+                        case ')' -> {
+                            estado = "SQS";
+                            token = Tokens.ESPECIAL_SIMPLE;
+                        }
+                        case ' ' -> estado = "S102";
+                        default -> {
+                            estado = "E";
+                        }
+                    }
+                }
+                case "S103" -> {
+                    switch(c){
+                        case ' ' -> estado = "S103";
+                        default -> {
+                            if (esNumero(c)) {
+                                estado = "S104";
+                            } else {
+                                estado = "E";
+                            }
+                        }
+                    }
+                }
+                case "S104" -> {
+                    if (esNumero(c)) {
+                        estado = "S104";
+                    } else if (c == ' ') {
+                        estado = "S105a";
+                    } else if (c == ',') {
+                        estado = "S106";
+                    } else {
+                        estado = "E";
+                    }
+                }
+                case "S105a" -> {
+                    if (c == ' ') {
+                        estado = "S105a";
+                    } else if (c == ',') {
+                        estado = "S106";
+                    } else {
+                        estado = "E";
+                    }
+                }
+                case "S106" -> {
+                    if (esNumero(c)) {
+                        estado = "S106";
+                    } else if (c == ' ') {
+                        estado = "S107a";
+                    } else if (c == ')') {
+                        estado = "SQS";
+                        token = Tokens.ESPECIAL;
+                    } else {
+                        estado = "E";
+                    }
+                }
+                case "S107a" -> {
+                    if (c == ' ') {
+                        estado = "S107a";
+                    } else if (c == ')') {
+                        estado = "SQS";
+                        token = Tokens.ESPECIAL;
+                    } else {
+                        estado = "E";
+                    }
+                }
+                case "SQS" -> {
+                    if (!esLexemaNuevo(c)) {
+                        token = Tokens.ERROR;
+                        estado = "E";
                     }
                 }
                 case "F" -> {
@@ -1039,7 +1256,6 @@ public class Automata{
             if (!esCaracterIgnorado(c)) {
                 lexema.add(c);
             }
-            columna++;
         }
         crearToken();
         return estado.equals("F") || estado.equals("S31") || estado.equals("S38");
@@ -1052,7 +1268,7 @@ public class Automata{
     private void identificador(char c){
         if (!esIdentificador(c)) {
             analizarCaracter(c);
-        }
+        } 
     }
     private void analizarNumero(char c){
         if (!esLexemaNuevo(c)) {
@@ -1123,6 +1339,10 @@ public class Automata{
     private boolean esIdentificador(char c){
         return esLetra(c) || esNumero(c) || c == '_';
     }
+    
+    private boolean esColor(char c){
+        return (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f') || esNumero(c);
+    }
 
     private void crearToken() {
         if (lexema.size() > 0) {
@@ -1131,10 +1351,15 @@ public class Automata{
             token.setFila(fila);
             token.setLexema(lexema);
             token.setToken(this.token);
+            if (this.token == Tokens.ESPECIAL || this.token == Tokens.ESPECIAL_SIMPLE) {
+                SquareColor color = new SquareColor(lexema);
+                token.setSquare(color);
+            }
             lexema = new ArrayList<>();
             tokens.add(token);
             estado = "S0";
             this.token = Tokens.IDENTIFICADOR;
+            columna++;
         }
     }
     
