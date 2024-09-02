@@ -51,6 +51,10 @@ public class Automata{
                         case 'S' -> estado = "S65";
                         case 'T' -> estado = "S71";
                         case 'W' -> estado = "S73";
+                        case '^' -> {
+                            estado = "Q";
+                            token = Tokens.ARITMETICO_EXPONENTE;
+                        }
                         case '"' -> {
                             token = Tokens.ERROR;
                             estado = "C1";
@@ -93,6 +97,7 @@ public class Automata{
                         }
                         default -> {
                             if (esNumero(c)) {
+                                token = Tokens.ENTERO;
                                 estado = "N";
                             } else if (esSimboloOSigno(c)) {
                                 analizarSimboloOSigno(c);
@@ -867,7 +872,10 @@ public class Automata{
                 
                 case "N" -> {
                     switch(c){
-                        case '.' -> estado = "D";
+                        case '.' -> {
+                            estado = "D";
+                            token = Tokens.ERROR;
+                        }
                         default -> {
                             if (esNumero(c)) {
                                 token = Tokens.ENTERO;
@@ -881,7 +889,11 @@ public class Automata{
                     switch(c){
                         case '.' -> estado = "E";
                         default -> {
-                            analizarNumero(c);
+                            if (esNumero(c)) {
+                                token = Tokens.DECIMAL;
+                            } else {
+                                analizarNumero(c);
+                            }
                         }
                     }
                 }

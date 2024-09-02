@@ -4,11 +4,13 @@
  */
 package com.mycompany.practical1.frontend;
 
+import com.mycompany.practical1.backend.CreadorDeImagen;
 import com.mycompany.practical1.backend.Lector;
 import com.mycompany.practical1.backend.Menu;
 import java.awt.GridLayout;
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -137,6 +139,11 @@ public class MenuEditor extends javax.swing.JFrame {
         jMenu3.setText("Exportar Imagen");
 
         image.setText("Guardar Imagen");
+        image.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imageActionPerformed(evt);
+            }
+        });
         jMenu3.add(image);
 
         jMenuBar1.add(jMenu3);
@@ -195,6 +202,16 @@ public class MenuEditor extends javax.swing.JFrame {
         menu2.escribirReporte();
     }//GEN-LAST:event_reporteActionPerformed
 
+    private void imageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imageActionPerformed
+        JFileChooser filechooser = new JFileChooser();
+        filechooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int ok = filechooser.showOpenDialog(null);
+        if (ok == JFileChooser.APPROVE_OPTION) {
+            CreadorDeImagen image = new CreadorDeImagen(panelCuadricula, this);
+            image.guardarImagen(filechooser.getSelectedFile());
+        }
+    }//GEN-LAST:event_imageActionPerformed
+
     public void definirCuadricula(int fila, int columna){
         panelCuadricula.setLayout(new GridLayout(fila, columna));
     }
@@ -207,6 +224,10 @@ public class MenuEditor extends javax.swing.JFrame {
                 panelCuadricula.add(celdaFrontend);
             }
         }
+    }
+    
+    public void mostrarResultado(String texto, String titulo){
+        JOptionPane.showMessageDialog(this, texto, titulo, JOptionPane.INFORMATION_MESSAGE);
     }
     
     public void escribir(String texto){

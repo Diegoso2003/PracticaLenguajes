@@ -52,7 +52,7 @@ public class LexemaFrontend extends javax.swing.JFrame {
         imagen.setText("jLabel1");
         imagen.setMaximumSize(new java.awt.Dimension(900, 50));
         imagen.setMinimumSize(new java.awt.Dimension(900, 50));
-        imagen.setPreferredSize(new java.awt.Dimension(900, 60));
+        imagen.setPreferredSize(new java.awt.Dimension(900, 70));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 4;
