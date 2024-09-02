@@ -21,6 +21,7 @@ public class Automata{
     private int fila = 1;
     private int columna = 1;
     private Tokens token;
+    private boolean signos = false;
 
     public Automata(String texto) {
         evaluarCadena(texto);
@@ -33,6 +34,7 @@ public class Automata{
         token = Tokens.IDENTIFICADOR;
         char[] caracteres = texto.toCharArray();
         for(int i = 0; i < caracteres.length; i++){
+            signos = false;
             char c = caracteres[i];
             switch(estado){
                 case "S0" -> {
@@ -100,9 +102,11 @@ public class Automata{
                             if (esNumero(c)) {
                                 token = Tokens.ENTERO;
                                 estado = "N";
-                            } else if (esSimboloOSigno(c)) {
+                            } else if (esSimboloOSigno(c)) {                               
                                 analizarSimboloOSigno(c);
+                                lexema.add(c);
                                 crearToken();
+                                signos = true;
                             } else {
                                 analizarCaracter(c);
                             }
@@ -1075,8 +1079,8 @@ public class Automata{
                         crearToken();
                         analizarSimboloOSigno(c);
                         lexema.add(c);
-                        columna++;
                         crearToken();
+                        signos = true;
                     }
                 }
                 case "B" -> {
@@ -1239,6 +1243,10 @@ public class Automata{
                     if (!esLexemaNuevo(c)) {
                         if (esSimboloOSigno(c)) {
                             crearToken();
+                            analizarSimboloOSigno(c);
+                            lexema.add(c);
+                            crearToken();
+                            signos = true;
                         } else {
                             estado = "E";
                             token = Tokens.ERROR;
@@ -1253,7 +1261,7 @@ public class Automata{
                 }
                 
             }
-            if (!esCaracterIgnorado(c)) {
+            if (!esCaracterIgnorado(c) && !signos) {
                 lexema.add(c);
             }
         }
@@ -1274,6 +1282,10 @@ public class Automata{
         if (!esLexemaNuevo(c)) {
             if (esSimboloOSigno(c)) {
                 crearToken();
+                analizarSimboloOSigno(c);
+                lexema.add(c);
+                crearToken();
+                signos = true;
             } else {
                 token = Tokens.ERROR;
                 estado = "E";
@@ -1287,6 +1299,10 @@ public class Automata{
                 estado = "I";
             } else if (esSimboloOSigno(c)) {
                 crearToken();
+                analizarSimboloOSigno(c);
+                lexema.add(c);
+                crearToken();
+                signos = true;
             } else {
                 token = Tokens.ERROR;
                 estado = "E";
@@ -1295,7 +1311,7 @@ public class Automata{
     }
     
     private boolean esSimboloOSigno(char c){
-        return c == '(' || c == ')' || c == '{' || c == '}' || c == '[' || c == ']' || c == ',' || c == '.';
+        return c == '(' || c == ')' || c == '{' || c == '}' || c == '[' || c == ']' || c == ',';
     }
     
     private void analizarSimboloOSigno(char c){
@@ -1307,9 +1323,7 @@ public class Automata{
             token = Tokens.CORCHETES;
         } else if ( c == ',') {
             token = Tokens.COMA;
-        } else if ( c == '.') {
-            token = Tokens.PUNTO;
-        }
+        } 
     }
     
     private boolean esCaracterIgnorado(char c){
