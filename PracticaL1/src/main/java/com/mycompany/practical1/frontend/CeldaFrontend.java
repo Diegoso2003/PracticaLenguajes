@@ -63,7 +63,7 @@ public class CeldaFrontend extends javax.swing.JPanel {
     
     public void limpiar(){
         token = false;
-        this.setBackground(new Color(187,187,187));
+        this.setBackground(new Color(60,63,65));
     }
 
     public void colorear(String color) {

@@ -58,5 +58,9 @@ public class Menu {
             cuadricula.llenar(listaDeTokens);
         }
     }
+
+    public void escribirReporte() {
+        cuadricula.mostrarReporte();
+    }
     
 }

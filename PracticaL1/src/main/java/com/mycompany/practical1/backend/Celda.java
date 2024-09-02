@@ -43,6 +43,7 @@ public class Celda {
     }
     
     public void limpiar(){
+        token = null;
         celda.limpiar();
     }
 

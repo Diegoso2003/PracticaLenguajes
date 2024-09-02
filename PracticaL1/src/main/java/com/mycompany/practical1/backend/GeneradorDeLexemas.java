@@ -17,33 +17,34 @@ import javax.imageio.ImageIO;
  * @author rafael-cayax
  */
 public class GeneradorDeLexemas {
+
     private BufferedImage imagenLexema;
 
     public GeneradorDeLexemas(List<Character> lexemas) {
         String lex = "";
-        for(Character c : lexemas){
+        for (Character c : lexemas) {
             lex += c;
         }
         generarImagen(lex);
     }
 
-    private void generarImagen(String lex) {
+    private void generarImagen(String lexa) {
 
         StringBuilder graphConstructor = new StringBuilder();
-        String lexema = lex.replace("\"", "'");
-        System.out.println(lexema);
+        String lex = lexa.replace('"', '\'');
         graphConstructor.append("digraph G {\n");
         graphConstructor.append("rankdir=LR;\n");
         graphConstructor.append("node [shape = circle];\n");
-        for (int i = 0; i < lexema.length(); i++) {
-            char caracter = lexema.charAt(i);
+        for (int i = 0; i < lex.length(); i++) {
+            char caracter = lex.charAt(i);
             String nodo = "node" + i;
 
-            if (i == lexema.length() - 1) {
-                graphConstructor.append(nodo + " [label=\"" + caracter + "\", shape=doublecircle];\n");
-            } else {
-                graphConstructor.append(nodo + " [label=\"" + caracter + "\"];\n");
-            }
+                if (i == lex.length() - 1) {
+                    graphConstructor.append(nodo + " [label=\"" + caracter + "\", shape=doublecircle];\n");
+                } else {
+                    graphConstructor.append(nodo + " [label=\"" + caracter + "\"];\n");
+                }
+            
 
             if (i > 0) {
                 String nodoPrevio = "node" + (i - 1);
@@ -71,6 +72,8 @@ public class GeneradorDeLexemas {
             process.waitFor();
 
         } catch (IOException | InterruptedException e) {
+            System.out.println(e.getCause());
+            System.out.println("error");
         }
     }
 
@@ -78,5 +81,4 @@ public class GeneradorDeLexemas {
         return imagenLexema;
     }
 
-    
 }

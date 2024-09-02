@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class Automata{
     private String estado;
-    private String color;
     private List<Character> lexema;
     private List<Token> tokens;
     private int fila = 1;
@@ -96,6 +95,7 @@ public class Automata{
                             if (esNumero(c)) {
                                 estado = "N";
                             } else if (esSimboloOSigno(c)) {
+                                analizarSimboloOSigno(c);
                                 crearToken();
                             } else {
                                 identificador(c);
@@ -892,9 +892,28 @@ public class Automata{
                             token = Tokens.ASIGNACION_COMPUESTA;
                         }
                         default -> {
-                            if (esNumero(c)) {
-                                token = Tokens.ENTERO;
-                                estado = "N";
+                            if (!esLexemaNuevo(c)) {
+                                if (esNumero(c)) {
+                                    token = Tokens.ENTERO;
+                                    estado = "N";
+                                } else {
+                                    token = Tokens.ERROR;
+                                    estado = "E";
+                                }
+                            }
+                        }
+                    }
+                }
+                case "A2" -> {
+                    switch(c){
+                        case '=' -> {
+                            estado = "Q";
+                            token = Tokens.ASIGNACION_COMPUESTA;
+                        }
+                        default -> {
+                            if (!esLexemaNuevo(c)) {
+                                token = Tokens.ERROR;
+                                estado = "E";
                             }
                         }
                     }

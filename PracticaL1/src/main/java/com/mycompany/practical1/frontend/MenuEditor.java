@@ -4,8 +4,11 @@
  */
 package com.mycompany.practical1.frontend;
 
+import com.mycompany.practical1.backend.Lector;
 import com.mycompany.practical1.backend.Menu;
 import java.awt.GridLayout;
+import java.io.File;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -35,10 +38,18 @@ public class MenuEditor extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         editor = new javax.swing.JTextArea();
         panelCuadricula = new javax.swing.JPanel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        nuevo = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        archivo = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        image = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        reporte = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1000, 500));
@@ -75,19 +86,6 @@ public class MenuEditor extends javax.swing.JFrame {
 
         jPanel3.add(jPanel5, java.awt.BorderLayout.PAGE_END);
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 337, Short.MAX_VALUE)
-        );
-
-        jPanel3.add(jPanel6, java.awt.BorderLayout.LINE_START);
-
         editor.setColumns(20);
         editor.setRows(5);
         jScrollPane1.setViewportView(editor);
@@ -112,6 +110,51 @@ public class MenuEditor extends javax.swing.JFrame {
 
         jSplitPane1.setRightComponent(panelCuadricula);
 
+        jMenu1.setText("Nuevo");
+
+        nuevo.setText("Nuevo Editor");
+        nuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(nuevo);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Archivo");
+
+        archivo.setText("Abrir Archivo");
+        archivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                archivoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(archivo);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Exportar Imagen");
+
+        image.setText("Guardar Imagen");
+        jMenu3.add(image);
+
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Reporte");
+
+        reporte.setText("Generar Reporte");
+        reporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reporteActionPerformed(evt);
+            }
+        });
+        jMenu4.add(reporte);
+
+        jMenuBar1.add(jMenu4);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -131,6 +174,27 @@ public class MenuEditor extends javax.swing.JFrame {
         menu2.iniciarAnalisis(texto);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoActionPerformed
+        MenuPrincipal menu3 = new MenuPrincipal();
+        menu3.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_nuevoActionPerformed
+
+    private void archivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_archivoActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        int returnValue = fileChooser.showOpenDialog(this);
+
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                Lector lector = new Lector(this, selectedFile);
+                lector.leer();
+            }
+    }//GEN-LAST:event_archivoActionPerformed
+
+    private void reporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reporteActionPerformed
+        menu2.escribirReporte();
+    }//GEN-LAST:event_reporteActionPerformed
+
     public void definirCuadricula(int fila, int columna){
         panelCuadricula.setLayout(new GridLayout(fila, columna));
     }
@@ -144,15 +208,27 @@ public class MenuEditor extends javax.swing.JFrame {
             }
         }
     }
+    
+    public void escribir(String texto){
+        editor.append(texto + "\n");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem archivo;
     private javax.swing.JTextArea editor;
+    private javax.swing.JMenuItem image;
     private javax.swing.JButton jButton2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JMenuItem nuevo;
     private javax.swing.JPanel panelCuadricula;
+    private javax.swing.JMenuItem reporte;
     // End of variables declaration//GEN-END:variables
 }

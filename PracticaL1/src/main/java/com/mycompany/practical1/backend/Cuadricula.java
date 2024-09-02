@@ -3,6 +3,7 @@ package com.mycompany.practical1.backend;
 
 import com.mycompany.practical1.backend.enums.Tokens;
 import com.mycompany.practical1.frontend.CeldaFrontend;
+import com.mycompany.practical1.frontend.ReportesFrontend;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,5 +76,11 @@ public class Cuadricula {
                 celdas[i][j].colorear();
             }
         }
+    }
+
+    public void mostrarReporte() {
+        ReportesFrontend r = new ReportesFrontend();
+        r.mostrar(celdas);
+        r.setVisible(true);
     }
 }
