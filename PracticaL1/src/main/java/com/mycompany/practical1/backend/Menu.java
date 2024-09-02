@@ -47,6 +47,7 @@ public class Menu {
     public void iniciarAnalisis(String texto){
         limpiarCuadricula();
         llenarCuadricula(analizador.analizar(texto));
+        cuadricula.verificarErrores();
     }
 
     private void limpiarCuadricula() {
@@ -61,6 +62,10 @@ public class Menu {
 
     public void escribirReporte() {
         cuadricula.mostrarReporte();
+    }
+
+    public void mostrarErrores() {
+        cuadricula.mostrarErrores();
     }
     
 }

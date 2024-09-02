@@ -2,9 +2,11 @@ package com.mycompany.practical1.backend;
 
 import com.mycompany.practical1.backend.enums.Tokens;
 import com.mycompany.practical1.frontend.CeldaFrontend;
+import com.mycompany.practical1.frontend.ErroresFrontend;
 import com.mycompany.practical1.frontend.ReportesFrontend;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class Cuadricula {
 
@@ -14,6 +16,7 @@ public class Cuadricula {
     private int simples;
     private List<Token> errores;
     private List<SquareColor> squaresEspeciales;
+    private Token toke;
 
     public Cuadricula(int fila, int columna) {
         filas = fila;
@@ -39,6 +42,7 @@ public class Cuadricula {
     }
 
     public void limpiar() {
+        toke = null;
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 celdas[i][j].limpiar();
@@ -49,6 +53,7 @@ public class Cuadricula {
     public void llenar(List<Token> listaDeTokens) {
         errores = new ArrayList<>();
         verificarErrores(listaDeTokens);
+        verificarEspacio(listaDeTokens);
         int indice = 0;
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
@@ -103,5 +108,45 @@ public class Cuadricula {
                 }
             }
         }
+    }
+
+    public void verificarErrores() {
+        String texto = "";
+        boolean error = false;
+        if (errores.size() > 0) {
+            texto += "hubo errores en el codigo ";
+            error = true;
+        }
+        if (toke != null) {
+            texto += " hay demasiados tokens ";
+            error = true;
+        }
+        if (error) {
+            texto += " Para mas Detalles vea la Pestaña Errores";
+            JOptionPane.showMessageDialog(null, texto, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }
+
+    private void verificarEspacio(List<Token> listaDeTokens) {
+        int espacio = filas * columnas;
+        int cantidad = 0;
+        int ubicacion = 0;
+        for(Token t: listaDeTokens){
+            if (t.getToken() != Tokens.ERROR && t.getToken() != Tokens.ESPECIAL) {
+                cantidad++;
+            }
+            ubicacion++;
+        }
+        
+        if (cantidad > espacio) {
+            toke = listaDeTokens.get(ubicacion - 1);
+        }
+    }
+
+    public void mostrarErrores() {
+        ErroresFrontend e = new ErroresFrontend();
+        e.mostrarErrores(errores, toke);
+        e.setVisible(true);
     }
 }
